@@ -1,29 +1,31 @@
 function add(a, b) {
-    return String(parseFloat(a) + parseFloat(b));
+    return a+b
 }
 
 function subtract(a, b) {
-    return String(parseFloat(a) - parseFloat(b));
+    return a-b
 }
 
 function multiply(a, b) {
-    return String(parseFloat(a) * parseFloat(b));
+    return a * b
 }
 
 function divide(a, b) {
-    return String(parseFloat(a)/parseFloat(b));
+    return a/b
 }
 
 
 function operate(a, b, operation) {
+    a = parseFloat(a);
+    b = parseFloat(b);
     if (operation == '+') {
-        return add(a, b);
+        return String(add(a, b));
     } else if (operation == '-') {
-        return subtract(a, b);
+        return String(subtract(a, b));
     } else if (operation == '/') {
-        return divide(a, b);
+        return String(divide(a, b));
     } else if (operation == '*') {
-        return multiply(a, b);
+        return String(multiply(a, b));
     }
 }
 
@@ -52,7 +54,7 @@ function modifierClick(data, modifier) {
     if (modifier == 'AC') {
         data.currentValue = '';
         data.previousValue = '';
-        data.currentOperation = null;
+        data.operation = null;
         data.newNum = true;
     } else if (modifier == '+/-') {
         data.currentValue = String(-data.currentValue);
@@ -73,11 +75,11 @@ function operationClick(data, operation) {
         data. previousValue = data.currentValue;
         data.newNum = true;
     } else if (operation == '=') {
-        if (data.previousValue != null) {
+        if (data.previousValue != '') {
             data.currentValue = String(operate(data.previousValue, data.currentValue, data.operation));
             data.newNum = true;
         }
-        data.previousValue = null;
+        data.previousValue = '';
         data.operation = null;
     }
 

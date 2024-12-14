@@ -1,7 +1,7 @@
 let data = {
     screen: document.querySelector('.screen'),
-    currentValue: null,
-    previousValue: null,
+    currentValue: '',
+    previousValue: '',
     operation: null,
     newNum: true
 } 
