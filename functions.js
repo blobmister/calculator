@@ -66,6 +66,7 @@ function modifierClick(data, modifier) {
 }
 
 function operationClick(data, operation) {
+    debugger;
     if (operation != '=' && data.operation == null) {
         data.previousValue = data.currentValue;
         data.operation = operation;
@@ -73,6 +74,7 @@ function operationClick(data, operation) {
     } else if (operation != '=' && data.operation != null) {
         data.currentValue = String(operate(data.previousValue, data.currentValue, data.operation));
         data. previousValue = data.currentValue;
+        data.operation = operation;
         data.newNum = true;
     } else if (operation == '=') {
         if (data.previousValue != '') {
@@ -84,6 +86,7 @@ function operationClick(data, operation) {
     }
 
     updateScreen(data);
+    debugger;
 }
 
 function updateScreen(data) {
