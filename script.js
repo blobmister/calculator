@@ -10,6 +10,7 @@ let numbers = document.querySelectorAll('.number');
 let modifiers = document.querySelectorAll('.modifier');
 let operations = document.querySelectorAll('.operation');
 let buttons = document.querySelectorAll('button');
+let calculator = document.querySelector('body');
 
 for (let i = 0; i < numbers.length; i++) {
     let num = numbers[i].textContent;
@@ -30,6 +31,12 @@ for (let i = 0; i < operations.length; i++) {
 }
 
 for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('mousedown', () => buttons[i].style.opacity = '0.5');
-    buttons[i].addEventListener('mouseup', () => buttons[i].style.opacity = '1');
+    buttons[i].addEventListener('mousedown', (e) => {
+        if (e.button == 0) {buttons[i].style.opacity = '0.5';}
+    })
+    buttons[i].addEventListener('mouseup', (e) => {
+        if (e.button == 0)  {buttons[i].style.opacity = '1';}
+    })
 }
+
+calculator.addEventListener('keypress', (e) => keyup(e, data));

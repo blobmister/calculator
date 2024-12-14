@@ -60,6 +60,8 @@ function modifierClick(data, modifier) {
         data.currentValue = String(-data.currentValue);
     } else if (modifier == '%') {
         data.currentValue = String(data.currentValue/100);
+    } else if (modifier == 'backspace') {
+        data.currentValue = data.currentValue.slice(0, -1);
     }
 
     updateScreen(data);
@@ -95,4 +97,19 @@ function updateScreen(data) {
         displayNum = String(Number(displayNum).toExponential(6))
     }
     data.screen.textContent = displayNum;
+}
+
+function keyup(e, data) {
+    e.preventDefault();
+    if (!isNaN(Number(e.key)) || e.key == '.') {
+        numberClick(data, e.key);
+    } else if (['=', '+', '-', '/', '*'].includes(e.key)) {
+        operationClick(data, e.key);
+    } else if (e.key === 'Enter') {
+        operationClick(data, '=');
+    } else if (e.key === 'Escape') {
+        modifierClick(data, 'AC');
+    } else if (e.key === 'Backspace') {
+        modifierClick(data, 'backspace');
+    }
 }
