@@ -1,25 +1,30 @@
 function add(a, b) {
-    return a + b;
+    return String(parseFloat(a) + parseFloat(b));
 }
 
 function subtract(a, b) {
-    return a - b;
+    return String(parseFloat(a) - parseFloat(b));
 }
 
 function multiply(a, b) {
-    return a * b;
+    return String(parseFloat(a) * parseFloat(b));
 }
 
 function divide(a, b) {
-    return a/b;
+    return String(parseFloat(a)/parseFloat(b));
 }
 
-function percent(a) {
-    return a/100;
-}
 
-function switchPolarity(a) {
-    return -a;
+function operate(a, b, operation) {
+    if (operation == '+') {
+        return add(a, b);
+    } else if (operation == '-') {
+        return subtract(a, b);
+    } else if (operation == '/') {
+        return divide(a, b);
+    } else if (operation == '*') {
+        return multiply(a, b);
+    }
 }
 
 function numberClick(data, numValue) {
@@ -51,6 +56,29 @@ function modifierClick(data, modifier) {
         data.newNum = true;
     } else if (modifier == '+/-') {
         data.currentValue = String(-data.currentValue);
+    } else if (modifier == '%') {
+        data.currentValue = String(data.currentValue/100);
+    }
+
+    updateScreen(data);
+}
+
+function operationClick(data, operation) {
+    if (operation != '=' && data.operation == null) {
+        data.previousValue = data.currentValue;
+        data.operation = operation;
+        data.newNum = true;
+    } else if (operation != '=' && data.operation != null) {
+        data.currentValue = String(operate(data.previousValue, data.currentValue, data.operation));
+        data. previousValue = data.currentValue;
+        data.newNum = true;
+    } else if (operation == '=') {
+        if (data.previousValue != null) {
+            data.currentValue = String(operate(data.previousValue, data.currentValue, data.operation));
+            data.newNum = true;
+        }
+        data.previousValue = null;
+        data.operation = null;
     }
 
     updateScreen(data);
@@ -58,8 +86,8 @@ function modifierClick(data, modifier) {
 
 function updateScreen(data) {
     let displayNum = data.currentValue;
-    if (displayNum> 11) {
+    if (displayNum.length > 11) {
         displayNum = String(Number(displayNum).toExponential(6))
     }
-    data.screen.textContent = data.currentValue;
+    data.screen.textContent = displayNum;
 }
