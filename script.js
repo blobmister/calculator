@@ -37,6 +37,12 @@ for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('mouseup', (e) => {
         if (e.button == 0)  {buttons[i].style.opacity = '1';}
     })
+    buttons[i].addEventListener('touchstart', (e) => {
+        if (e.button == 0) {buttons[i].style.opacity = '0.5';}
+    })
+    buttons[i].addEventListener('touchend', (e) => {
+        if (e.button == 0)  {buttons[i].style.opacity = '1';}
+    })
 }
 
 calculator.addEventListener('keypress', (e) => keyup(e, data));
